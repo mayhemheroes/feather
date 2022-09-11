@@ -550,6 +550,7 @@ impl Readable for Slot {
         if present {
             let item_id = VarInt::read(buffer, version)?.0;
             let count = u8::read(buffer, version)? as u32;
+            anyhow::ensure!(count != 0, "count cannot be zero");
 
             // Read NBT, but make sure to reset the buffer position if it's missing.
             let position = buffer.position();
@@ -561,7 +562,6 @@ impl Readable for Slot {
             let item = Item::from_id(item_id.try_into()?)
                 .ok_or_else(|| anyhow!("unknown item ID {}", item_id))?;
 
-            // Todo fix: Panics if count is zero
             Ok(Filled(
                 ItemStackBuilder::with_item(item)
                     .count(count)
