@@ -1,0 +1,7 @@
+project: feather
+target: codec
+
+cmds:
+  - cmd: /codec
+  - cmd: /codec_no_inst @@
+    libfuzzer: false
