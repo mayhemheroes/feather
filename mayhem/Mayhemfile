@@ -1,0 +1,6 @@
+project: feather
+target: codec
+
+cmds:
+  - cmd: /mayhem/codec
+    libfuzzer: true
